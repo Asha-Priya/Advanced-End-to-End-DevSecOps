@@ -86,7 +86,30 @@ pipeline {
                 }
             }
         }
-
+        stage('Login to Amazon ECR') {
+            steps {
+                sh '''
+        aws ecr get-login-password --region ap-south-1 | \
+        docker login --username AWS --password-stdin 108964700364.dkr.ecr.ap-south-1.amazonaws.com
+        '''
+    }
+}
+       stage('Push Frontend Image') {
+           steps {
+               sh '''
+        docker tag frontend:latest 108964700364.dkr.ecr.ap-south-1.amazonaws.com/frontend:latest
+        docker push 108964700364.dkr.ecr.ap-south-1.amazonaws.com/frontend:latest
+        '''
+    }
+}
+        stage('Push Backend Image') {
+            steps {
+                sh '''
+        docker tag backend:latest 108964700364.dkr.ecr.ap-south-1.amazonaws.com/backend:latest
+        docker push 108964700364.dkr.ecr.ap-south-1.amazonaws.com/backend:latest
+        '''
+    }
+}
         stage('Trivy Image Scan') {
             steps {
                 sh "trivy image ${FRONTEND_IMAGE}"
