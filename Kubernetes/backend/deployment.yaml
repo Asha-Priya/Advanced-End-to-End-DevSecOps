@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  namespace: three-tier
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: 108964700364.dkr.ecr.ap-south-1.amazonaws.com/backend:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3500
+        env:
+        - name: PORT
+          value: "3500"
+        - name: MONGO_CONN_STR
+          value: "mongodb://mongodb:27017/three-tier"
+        - name: USE_DB_AUTH
+          value: "false"
