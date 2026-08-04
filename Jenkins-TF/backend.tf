@@ -1,6 +1,6 @@
 terraform {
   backend "s3" {
-    bucket         = "asha-devsecops-tf-state"
+    bucket         = "devsecops-project-buckett"
     key            = "jenkins/terraform.tfstate"
     region         = "ap-south-1"
     dynamodb_table = "terraform-lock"
