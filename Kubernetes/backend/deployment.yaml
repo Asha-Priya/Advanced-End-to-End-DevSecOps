@@ -23,6 +23,6 @@ spec:
         - name: PORT
           value: "3500"
         - name: MONGO_CONN_STR
-          value: "mongodb://mongodb:27017/three-tier"
+          value: "mongodb://admin:Admin@12345@mongodb:27017/three-tier?authSource=admin"
         - name: USE_DB_AUTH
-          value: "false"
+          value: "true"
